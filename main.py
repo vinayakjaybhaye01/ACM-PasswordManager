@@ -7,6 +7,7 @@ from utils.helper import encrypt_password, decrypt_password
 from cryptography.fernet import Fernet
 import random 
 import string
+import pyperclip
 
 # generate a password
 def generate_password(length=12, complexity='medium'):
@@ -159,6 +160,8 @@ def view_passwords():
                         encrypted_password = entry['password']
                         decrypted_password = decrypt_password(encrypted_password)
                         printc(f"[blue]Password:[/blue] {decrypted_password}")
+                        printc("[red]Copied Password to clipboard [/red]")
+                        pyperclip.copy(decrypted_password)
                         break
                 else:
                     printc(f"[red][-][/red] No account found with name: {account_name}")

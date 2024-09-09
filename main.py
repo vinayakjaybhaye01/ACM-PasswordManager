@@ -5,13 +5,12 @@ from rich import print as printc
 from utils.config import config  # Import config() function
 from utils.helper import encrypt_password, decrypt_password
 from cryptography.fernet import Fernet
-import os
 import random 
 import string
 
 # generate a password
 def generate_password(length=12, complexity='medium'):
-    """Generate a strong random password"""
+    #Generate a strong random password
     characters = string.ascii_letters + string.digits
     if complexity == 'high':
         characters += string.punctuation
@@ -172,12 +171,12 @@ def view_passwords():
 # Main menu
 def main():
     while True:
-        print("\nPassword Manager Options:")
-        print("1. Add Password")
-        print("2. Update Password")
-        print("3. Delete Password")
-        print("4. View Passwords")
-        print("5. Exit")
+        printc("\n[bold magenta]Password Manager Options:[/bold magenta]")
+        printc("[cyan]1.[/cyan] [yellow]Add Password[/yellow]")
+        printc("[cyan]2.[/cyan] [yellow]Update Password[/yellow]")
+        printc("[cyan]3.[/cyan] [yellow]Delete Password[/yellow]")
+        printc("[cyan]4.[/cyan] [yellow]View Passwords[/yellow]")
+        printc("[cyan]5.[/cyan] [red]Exit[/red]")
 
         choice = input("Choose an option: ")
 

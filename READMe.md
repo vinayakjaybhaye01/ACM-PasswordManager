@@ -7,3 +7,11 @@ steps:
 
 
 
+modules used:
+   getpass
+   hashlib
+   rich
+   cryptography
+   
+
+

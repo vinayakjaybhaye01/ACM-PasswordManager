@@ -14,10 +14,6 @@ from cryptography.fernet import Fernet
 def generateDeviceSecret(length = 10):
     return ''.join(random.choices(string.ascii_uppercase +string.digits, k = length))
 
-# def generateDeviceSecret():
-#     """Generate and save an encryption key"""
-#     key = Fernet.generate_key()
-#     return key
 
 def insertToDataBase(hashed_mp, deviceSec):
     data = {
@@ -32,7 +28,6 @@ def insertToDataBase(hashed_mp, deviceSec):
 
 
 #Interact with json files as they act as database
-
 def config():
 #get a masterpassword
     while 1:

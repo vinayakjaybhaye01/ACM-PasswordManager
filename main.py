@@ -19,7 +19,7 @@ def generate_password(length=12, complexity='medium'):
 # Authenticate the user by checking the master password
 def authenticate():
     try:
-        with open('database.json', 'r') as file:
+        with open('secure_storage/database.json', 'r') as file:
             data = json.load(file)
     except FileNotFoundError:
         printc("[red][-][/red] No master password found. Setting up...")
@@ -55,7 +55,7 @@ def add_password():
         encrypted_password = encrypt_password(password)
 
         try:
-            with open('passwords.json', 'r') as file:
+            with open('secure_storage/passwords.json', 'r') as file:
                 data = json.load(file)
         except FileNotFoundError:
             data = {"passwords": []}
@@ -69,7 +69,7 @@ def add_password():
 
         data["passwords"].append(new_entry)
 
-        with open('passwords.json', 'w') as file:
+        with open('secure_storage/passwords.json', 'w') as file:
             json.dump(data, file, indent=4)
 
         printc("[green][+][/green] Password added successfully!")
@@ -81,7 +81,7 @@ def update_password():
         account_name = input("Enter the Account Name to Update: ")
 
         try:
-            with open('passwords.json', 'r') as file:
+            with open('secure_storage/passwords.json', 'r') as file:
                 data = json.load(file)
         except FileNotFoundError:
             printc("[red][-][/red] No passwords found!")
@@ -97,7 +97,7 @@ def update_password():
             printc(f"[red][-][/red] No account found with name: {account_name}")
             return
 
-        with open('passwords.json', 'w') as file:
+        with open('secure_storage/passwords.json', 'w') as file:
             json.dump(data, file, indent=4)
 
         printc(f"[green][+][/green] Password for {account_name} updated successfully!")
@@ -109,7 +109,7 @@ def delete_password():
         account_name = input("Enter the Account Name to Delete: ")
 
         try:
-            with open('passwords.json', 'r') as file:
+            with open('secure_storage/passwords.json', 'r') as file:
                 data = json.load(file)
         except FileNotFoundError:
             printc("[red][-][/red] No passwords found!")
@@ -125,7 +125,7 @@ def delete_password():
             printc(f"[red][-][/red] No account found with name: {account_name}")
             return
 
-        with open('passwords.json', 'w') as file:
+        with open('secure_storage/passwords.json', 'w') as file:
             json.dump(data, file, indent=4)
 
         printc(f"[green][+][/green] Password for {account_name} deleted successfully!")
@@ -134,7 +134,7 @@ def delete_password():
 def view_passwords():
     if authenticate():
         try:
-            with open('passwords.json', 'r') as file:
+            with open('secure_storage/passwords.json', 'r') as file:
                 data = json.load(file)
         except FileNotFoundError:
             printc("[red][-][/red] No passwords found!")

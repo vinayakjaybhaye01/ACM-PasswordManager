@@ -20,7 +20,7 @@ def insertToDataBase(hashed_mp, deviceSec):
         "hashed_master_password": hashed_mp,
         "device_secret": deviceSec
     }
-    with open('database.json', 'w') as file:
+    with open('secure_storage/database.json', 'w') as file:
         json.dump(data, file)
     printc("[green][+][/green] Data stored in database.json")
 

@@ -44,10 +44,6 @@ def add_password(account, username, password):
         f.write('\n')  # Separate entries by new lines
 
 
-
-
-
-
 def view_passwords():
     """View all saved accounts (without revealing passwords)"""
     master_password = input("Enter your master password: ")
@@ -109,7 +105,6 @@ def update_password(account_name):
                     f.write(json.dumps(entry) + '\n')
                 else:
                     print("Incorrect Password Entered:")
-
 
 import random
 import string

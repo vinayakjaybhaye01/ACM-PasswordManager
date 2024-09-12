@@ -4,27 +4,19 @@ console = Console()
 
 from getpass import getpass
 import hashlib
-import random 
-import string
 import json
 from cryptography.fernet import Fernet
 
 
 
-def generateDeviceSecret(length = 10):
-    return ''.join(random.choices(string.ascii_uppercase +string.digits, k = length))
 
-
-def insertToDataBase(hashed_mp, deviceSec):
+def insertToDataBase(hashed_mp):
     data = {
-        "hashed_master_password": hashed_mp,
-        "device_secret": deviceSec
+        "hashed_master_password": hashed_mp
     }
     with open('secure_storage/database.json', 'w') as file:
         json.dump(data, file)
     printc("[green][+][/green] Data stored in database.json")
-
-
 
 
 #Interact with json files as they act as database
@@ -39,13 +31,8 @@ def config():
     #Hash the MASTER PASSWORD
     hashed_mp = hashlib.sha256(mp.encode()).hexdigest()
     printc("[green][+][/green] Generated hash of MASTER PASSWORD")
-    
-    
-    #Generate device secret
-    ds = generateDeviceSecret()
-    printc("[green][+][/green] Device Secret generated")
+       
 
-
-    #insert masterpassword and devicesecret to json files(database)
-    insertToDataBase(hashed_mp, ds)
+    #insert masterpassword to json file(database.json)
+    insertToDataBase(hashed_mp)
 

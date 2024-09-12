@@ -3,8 +3,7 @@ import hashlib
 import json
 from rich import print as printc
 from utils.config import config  # Import config() function
-from utils.helper import encrypt_password, decrypt_password
-from cryptography.fernet import Fernet
+from utils.helper import encrypt_password, decrypt_password   # import from helper.py
 import random 
 import string
 import pyperclip
@@ -27,7 +26,7 @@ def authenticate():
         config()  # Call config to set up the master password if it doesn't exist
         return authenticate()
 
-    hashed_mp = data.get('hashed_master_password', '')
+    hashed_mp = data.get('hashed_master_password', '') # if hashed_mp is not found in file returns ""
 
     while True:
         mp = getpass("Enter Master Password to Authenticate: ")
@@ -61,11 +60,11 @@ def add_password():
         except FileNotFoundError:
             data = {"passwords": []}
 
-        # Store the password (encryption part can be added)
+        
         new_entry = {
             "account_name": account_name,
             "username": username,
-            "password": encrypted_password.decode()  # For now plain-text, encryption can be added
+            "password": encrypted_password.decode()  
         }
 
         data["passwords"].append(new_entry)
@@ -79,6 +78,23 @@ def add_password():
 # Update an existing password
 def update_password():
     if authenticate():
+        
+        # showing saved passwords
+        try:
+            with open('secure_storage/passwords.json', 'r') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            printc("[red][-][/red] No passwords found!")
+            return
+        printc("[cyan][*][/cyan] Saved Passwords:")
+        for entry in data["passwords"]:
+            printc(f"[blue]Account Name:[/blue] {entry['account_name']}")
+            printc(f"[blue]Username:[/blue] {entry['username']}")
+            # Password is not shown on screen until we enter masterkey
+            printc("[blue]Password:[/blue] [hidden]")
+            print() 
+            
+            #take input account name to updata password
         account_name = input("Enter the Account Name to Update: ")
 
         try:
@@ -145,7 +161,7 @@ def view_passwords():
         for entry in data["passwords"]:
             printc(f"[blue]Account Name:[/blue] {entry['account_name']}")
             printc(f"[blue]Username:[/blue] {entry['username']}")
-            # Passwords are not shown directly for security reasons
+            # Password is not shown on screen until we enter masterkey
             printc("[blue]Password:[/blue] [hidden]")
             print()  
 
